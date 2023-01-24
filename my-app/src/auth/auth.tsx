@@ -1,8 +1,9 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./auth.css";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {useState} from "react";
 import axios from "axios";
+
 
 
 export default function Auth() {
@@ -47,17 +48,20 @@ export default function Auth() {
 }
 
 function registration(e: any, value: string, password: string) {
-    e.preventDefault()
-    axios.post('http://localhost:5000/auth/registration', {
-        username: value,
-        password: password,
-    })
-        .then(function (response) {
-            console.log(response);
+    if ((value.trim().length >1) || (password.trim().length >1) ) {
+        axios.post('http://localhost:5000/auth/registration', {
+            username: value,
+            password: password,
         })
-        .catch(function (error) {
-            console.log(error);
-        });
+            .then(function (response) {
+
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+    e.preventDefault()
+
 }
 
 export  function SignIn() {
@@ -94,22 +98,32 @@ export  function SignIn() {
             />
             <button className="btn btn-lg btn-primary btn-block" type="submit"
                     onClick={(e) => login(e, value.username, password.password)}>
-                <Link to="/main" className="link link-light">Sign In</Link>
+                <Link to="/main" className="link link-light" onClick={()=> {}}>Sign In</Link>
             </button>
         </form>
     );
 }
+
+function verify() {
+
+}
 function login(e: any, value: string, password: string) {
+if ((value.trim().length >1) || (password.trim().length >1) ) {
     e.preventDefault()
-    axios.post('http://localhost:5000/auth/registration', {
+    axios.post('http://localhost:5000/auth/login', {
         username: value,
         password: password,
     })
-        .then(function (response) {
-            console.log(response);
-        })
-        .catch(function (error) {
-            console.log(error);
+        .then(response => {
+            let token = response.data
+            localStorage.setItem("token", token);
+            return
+        }).catch(function (error) {
+            console.log(error,'k.jb');
         });
+
 }
+
+}
+
 
