@@ -1,8 +1,8 @@
-import Header from "./header";
+import './main.css'
 import {useEffect, useState} from "react";
 import axios from 'axios';
 import {baseUrl} from "../app";
-import {Form, Navigate, useNavigate} from "react-router-dom";
+import {Form, Link, Navigate, useNavigate} from "react-router-dom";
 import {FormControl, InputGroup, Table} from "react-bootstrap";
 import {isAccordionItemSelected} from "react-bootstrap/AccordionContext";
 
@@ -33,7 +33,8 @@ const Main = () => {
 
     return (
         <div>
-            <button  onClick={logout}> logout </button>
+            <button  onClick={logout} className={"button-logout"}>
+                <Link className={"button-link"} to="/" >logout</Link></button>
             <Table striped bordered hover>
                 <thead>
                 <tr>
@@ -71,11 +72,6 @@ const Main = () => {
 
 function  logout() {
     localStorage.clear()
-        return (
-                <Navigate to="/"/>
-            )
-
-
 }
 // function getToken(t:any){
 //      axios({

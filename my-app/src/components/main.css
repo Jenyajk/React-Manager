@@ -1,0 +1,12 @@
+.button-logout {
+    border-style: none;
+padding: 10px;
+    margin: 5px;
+    display: flex;
+    justify-content: flex-end;
+}
+.button-link {
+    text-decoration: none;
+color: black;
+}
+

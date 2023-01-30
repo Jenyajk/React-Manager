@@ -129,7 +129,7 @@ if ((value.trim().length >=1) || (password.trim().length >=1) ) {
             let token = response.data
             localStorage.setItem("token", token);
         }).catch(function (error) {
-            alert("Incorrect password");
+           ;
         });
 
 }
