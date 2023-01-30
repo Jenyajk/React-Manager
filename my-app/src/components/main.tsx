@@ -13,76 +13,67 @@ interface Item {
 }
 
 const Main = () => {
-    // const [data, setData] = useState([])
-    // let t: never[] = []
-    // let token = localStorage.getItem('token')
-    //  axios({
-    //     method: "get",
-    //     url: `${baseUrl}/auth/users`,
-    //     headers: {
-    //         Authorization: `Bearer ${token}`,
-    //     },
-    // }).then((response) => {
-    //    setData(response.data)
-    //
-    // });
-    // console.log(data)
+    const [items, setItems] = useState<any[]>([]);
 
-    const [checked, setChecked] = useState([])
+     let token = localStorage.getItem('token')
+
+    useEffect(() => {
+        axios({
+            method: "get",
+            url: `${baseUrl}/auth/users`,
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }).then(res =>
+            setItems(res.data)
+
+        )
+    }, [])
+    let data = items.map((e)=> {
+        return <tr key={e._id}>
+            <td><InputGroup.Checkbox className="mb-3"
+                                     aria-label="Checkbox for following text input"
+            />
+            </td>
+            <td>id</td>
+            <td>{e.username}</td>
+            <td>{e.email}</td>
+            <td>last time</td>
+            <td>last time</td>
+            <td>Active</td>
+        </tr>;
+    })
+        return (
+            <div>
+                <button onClick={logout} className={"button-logout"}>
+                    <Link className={"button-link"} to="/React-Manager">logout</Link></button>
+                <Table striped bordered hover >
+                    <thead>
+                    <tr>
+                        <th>
+                            <InputGroup.Checkbox className="mb-3"
+                                                 aria-label="Checkbox for following text input"/>
+                        </th>
+                        <th>ID</th>
+                        <th>LOGIN</th>
+                        <th>EMAIL</th>
+                        <th>last login time</th>
+                        <th>registration time</th>
+                        <th>status</th>
+                    </tr>
+                    </thead>
+                    <tbody >
+                    {data}
+                    </tbody>
+                </Table>
+            </div>
+        )
+        function logout() {
+            localStorage.clear()
+        }
+    }
+    ;
 
 
-    return (
-        <div>
-            <button  onClick={logout} className={"button-logout"}>
-                <Link className={"button-link"} to="/" >logout</Link></button>
-            <Table striped bordered hover>
-                <thead>
-                <tr>
-                    <th>
-                        <InputGroup.Checkbox className="mb-3"
-                                             aria-label="Checkbox for following text input" />
-                    </th>
-                    <th>ID</th>
-                    <th>LOGIN</th>
-                    <th>EMAIL</th>
-                    <th>last login time</th>
-                    <th>registration time</th>
-                    <th>status</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td><InputGroup.Checkbox className="mb-3"
-                                             aria-label="Checkbox for following text input"
-                    />
-                    </td>
-                    <td>data</td>
-                    <td></td>
-                    <td></td>
-                    <td>item.id</td>
-                    <td>item.id</td>
-                    <td>item.id</td>
-                </tr>
-                </tbody>
-            </Table>
-        </div>
-    )
-
-};
-
-function  logout() {
-    localStorage.clear()
-}
-// function getToken(t:any){
-//      axios({
-//          method: "get",
-//          url: `${baseUrl}/auth/users`,
-//          headers: {
-//              Authorization: `Bearer ${t}`,
-//         },
-//      }).then((response) => {
-//          console.log(response.data);
-//      });
-//  }
 
 export default Main;

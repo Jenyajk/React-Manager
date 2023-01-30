@@ -4,6 +4,7 @@ import {Link} from "react-router-dom";
 import {useState} from "react";
 import axios from "axios";
 import {baseUrl} from "../app";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -15,7 +16,7 @@ export default function Auth() {
         <form className="form-signin">
             <h1 className="h3 mb-3 font-weight-normal">Registration</h1>
             <div> If you have account
-                <Link to="/" className="link"> Sign In</Link>
+                <Link to="/React-Manager" className="link"> Sign In</Link>
             </div>
             <label htmlFor="inputEmail" className="sr-only">
             </label>
@@ -55,7 +56,7 @@ export default function Auth() {
             <button className="btn btn-lg btn-primary btn-block"
                     type="submit"
                     onClick={(e) => registration( value.username, password.password,email.email)}>
-                <Link to="/" className="link link-light">Submit</Link>
+                <Link to="/React-Manager/main" className="link link-light">Submit</Link>
             </button>
         </form>
     );
@@ -80,6 +81,7 @@ function registration( value: string, password: string, email: any) {
 }
 
 export  function SignIn() {
+    let navigate = useNavigate();
     const [value, setValue] = useState({username: ''});
     const [password, setPassword] = useState({password: ''})
     return (
@@ -113,25 +115,25 @@ export  function SignIn() {
             />
             <button className="btn btn-lg btn-primary btn-block" type="submit"
                     onClick={() => login(value.username, password.password)}>
-                 <Link to="main" className="link link-light">Sign In</Link>
+                 <Link to="React-Manager/main" className="link link-light">Sign In</Link>
             </button>
         </form>
     );
-}
 
-function login( value: string, password: string) {
-if ((value.trim().length >=1) || (password.trim().length >=1) ) {
-    axios.post(`${baseUrl}/auth/login`, {
-        username: value,
-        password: password,
-    })
-        .then(response => {
-            let token = response.data
-            localStorage.setItem("token", token);
-        }).catch(function (error) {
-           ;
-        });
-
+    async function login( value: string, password: string) {
+        if ((value.trim().length >=1) || (password.trim().length >=1) ) {
+            await axios.post(`${baseUrl}/auth/login`, {
+                username: value,
+                password: password,
+            })
+                .then(response => {
+                    let token = response.data
+                    localStorage.setItem("token", token);
+                }).catch(function (error) {
+                    console.log(error)
+                });
+            navigate("/React-Manager/main");
+        }
 }
 
 }

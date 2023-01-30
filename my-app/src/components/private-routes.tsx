@@ -5,7 +5,7 @@ const PrivateRoutes = () => {
     let t = !token
 
     return(
-        !t ? <Outlet/>: <Navigate to="/"/>
+        !t ? <Outlet/>: <Navigate to="/React-Manager"/>
     )
 }
 

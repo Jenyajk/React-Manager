@@ -4,17 +4,17 @@ import { BrowserRouter, Routes, Route, Router } from "react-router-dom";
 import Main from "./components/main";
 import PrivateRoutes from "./components/private-routes";
 
-export const baseUrl = 'http://localhost:5000'
+export const baseUrl = 'https://manager-yma2.onrender.com'
 export default function App() {
     return (
         <div className="App">
             <BrowserRouter>
                 <Routes>
                     <Route element={<PrivateRoutes />}>
-                        <Route element={<Main/>} path="main" />
+                        <Route element={<Main/>} path="React-Manager/main" />
                     </Route>
-                    <Route element={<SignIn/>} path="/"/>
-                    <Route path="sign" element={<Auth />} />
+                    <Route element={<SignIn/>} path="/React-Manager"/>
+                    <Route path="/React-Manager/sign" element={<Auth />} />
                 </Routes>
             </BrowserRouter>
         </div>
